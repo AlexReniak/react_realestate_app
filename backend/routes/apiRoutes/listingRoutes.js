@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../../auth/auth');
+const auth = require('../../middleware/auth');
 const { createListing, getAllListings, getUserListings, updateListing, deleteListing } = require('../../controllers/listingController');
 
 router.route('/')

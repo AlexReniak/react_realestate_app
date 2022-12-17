@@ -61,6 +61,28 @@ const loginUser = asyncHandler(async (req, res) => {
     }
 });
 
+const updateUser = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.user.id);
+
+    if(!user) {
+        res.status(404);
+        throw new Error('User not found');
+    };
+
+    if(req.body.password) {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        await User.findByIdAndUpdate(req.user.id, { password: hashedPassword }, { new: true });
+    };
+
+    delete req.body.password;
+    
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, req.body, { new: true });
+
+    res.status(200).json('User updated');
+});
+
+
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: '30d'
@@ -69,5 +91,6 @@ const generateToken = (id) => {
 
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    updateUser
 }
