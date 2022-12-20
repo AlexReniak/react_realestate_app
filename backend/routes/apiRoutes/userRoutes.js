@@ -10,5 +10,7 @@ router.route('/')
 router.route('/login')
     .post(loginUser)
 
+router.route('/:id')
+    .put(auth, updateUser)
 
 module.exports = router;
