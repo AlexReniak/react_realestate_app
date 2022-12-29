@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from "../components/Header";
 import Card from "../components/Card";
+import Spinner from '../components/Spinner';
 import Modal from 'react-modal';
 import { FaHome, FaBuilding } from 'react-icons/fa'
 import { BsX } from 'react-icons/bs'
@@ -32,6 +33,12 @@ function Home() {
     const openModal = () => setModalIsOpen(true);
 
     const closeModal = () => setModalIsOpen(false);
+
+    if(loading) {
+        return (
+            <Spinner isLoading={loading} />
+        )
+    }
 
     return (
         <>

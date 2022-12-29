@@ -20,6 +20,7 @@ const listingSchema = mongoose.Schema({
     },
     squareFeet: {
         type: Number,
+        default: 0,
     },
     bedrooms: {
         type: Number,

@@ -9,10 +9,11 @@ function SignUp() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        password: ''
+        password: '',
+        password2: ''
     });
 
-    const { name, email, password } = formData;
+    const { name, email, password, password2 } = formData;
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -40,15 +41,19 @@ function SignUp() {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        const userData = {
-            name,
-            email,
-            password
-        }
-
-        dispatch(register(userData));
-        navigate('/dashboard');
-    }
+        if(password !== password2) {
+            alert('Passwords do not match');
+        } else {
+            const userData = {
+                name,
+                email,
+                password
+            }
+    
+            dispatch(register(userData));
+            navigate('/dashboard');
+        };
+    };
 
     if(isLoading) {
         return (
@@ -64,13 +69,16 @@ function SignUp() {
             <section>
                 <form className="form" onSubmit={onSubmit}>
                 <div className="form__group">
-                        <input type="text" id="text" className="form__input" required value={name} onChange={onChange} placeholder="Name"/>
+                        <input type="text" id="name" className="form__input" required value={name} onChange={onChange} placeholder="Name"/>
                     </div>
                     <div className="form__group">
                         <input type="email" id="email" className="form__input" required value={email} onChange={onChange} placeholder="Email"/>
                     </div>
                     <div className="form__group">
                         <input type="password" id="password" className="form__input" required value={password} onChange={onChange} placeholder="Password"/>
+                    </div>
+                    <div className="form__group">
+                        <input type="password" id="password2" className="form__input" required value={password2} onChange={onChange} placeholder="Confirm password"/>
                     </div>
                     <button className="btn form__btn">Sign Up</button>
                 </form>
