@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-API_URL = '/api/listings/'
+const API_URL = '/api/listings'
 
 // Create new property
 const createProperty = async (propertyData, token) => {
@@ -69,4 +69,4 @@ const propertyService = {
     deleteProperty
 }
 
-module.exports = propertyService;
+export default propertyService;

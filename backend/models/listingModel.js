@@ -33,6 +33,10 @@ const listingSchema = mongoose.Schema({
     description: {
         type: String,
         default: ''
+    },
+    images: {
+        type: [Buffer],
+        default: []
     }
 }, {
     timestamps: true

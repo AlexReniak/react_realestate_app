@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import propertyService from './propertyService';
 
-initialState = {
+const initialState = {
     properties: [],
     property: {},
     isError: false,
@@ -27,7 +27,7 @@ export const createProperty = createAsyncThunk('property/create', async (propert
 });
 
 // Get all properties
-export const getAllProperties = createAsyncThunk('property/getAll', async () => {
+export const getAllProperties = createAsyncThunk('property/getAll', async (_, thunkAPI) => {
     try {
         return await propertyService.getProperties();
     } catch(error) {

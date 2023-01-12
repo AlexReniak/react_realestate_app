@@ -34,11 +34,11 @@ function Home() {
 
     const closeModal = () => setModalIsOpen(false);
 
-    if(loading) {
-        return (
-            <Spinner isLoading={loading} />
-        )
-    }
+    // if(loading) {
+    //     return (
+    //         <Spinner isLoading={loading} />
+    //     )
+    // }
 
     return (
         <>

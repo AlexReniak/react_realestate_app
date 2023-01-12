@@ -4,7 +4,7 @@ const User = require('../models/userModel');
 
 const createListing = asyncHandler(async (req, res) => {
     try{
-        const { type, address, price, squareFeet, bedrooms, bathrooms, description } = req.body;
+        const { type, address, price, squareFeet, bedrooms, bathrooms, description, images } = req.body;
 
         if(!type || !address || !price || !bedrooms || !bathrooms) {
             res.status(400);
@@ -26,6 +26,7 @@ const createListing = asyncHandler(async (req, res) => {
             bedrooms,
             bathrooms,
             description,
+            images,
             user: req.user.id
         });
 

@@ -5,7 +5,7 @@ import { logout, reset } from '../features/auth/authSlice';
 
 function Navbar() {
 
-    const { user } = useSelector(state => state.auth)
+    const { user } = useSelector(state => state.auth);
 
     const dispatch = useDispatch();
 

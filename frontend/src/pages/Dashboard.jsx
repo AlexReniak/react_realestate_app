@@ -14,7 +14,8 @@ function Dashboard() {
     return (
         <div className="dashboard">
             <header>
-
+                <h2>Hello, {user.name}</h2>
+                <h2>Email: {user.email}</h2>
             </header>
 
             <main>
