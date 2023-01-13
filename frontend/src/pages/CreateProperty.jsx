@@ -22,7 +22,7 @@ function CreateProperty() {
     const navigate = useNavigate();
 
     const onChange = (e) => {
-        let boolean;
+        let boolean = null;
 
         if (e.target.value === 'true') {
             boolean = true;

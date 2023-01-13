@@ -1,22 +1,36 @@
 const asyncHandler = require('express-async-handler');
 const Listings = require('../models/listingModel');
 const User = require('../models/userModel');
+const uploadImg = require('../middleware/uploadImg')
 
 const createListing = asyncHandler(async (req, res) => {
     try{
-        const { type, address, price, squareFeet, bedrooms, bathrooms, description, images } = req.body;
 
+        const { type, address, price, squareFeet, bedrooms, bathrooms, description } = req.body;
+
+        
         if(!type || !address || !price || !bedrooms || !bathrooms) {
             res.status(400);
             throw new Error('Please fill out the required information');
         };
-
+        
         const user = await User.findById(req.user.id);
-
+        
         if(!user) {
             res.status(401);
             throw new Error('User not found');
         };
+        
+        let images = [];
+
+        try {
+            req.files.forEach(async (image) => {
+                await uploadImg(image).then((url) => images.push(url));
+            })
+        } catch (error) {
+            res.sendStatus(500);
+            throw new Error(`Error: ${error}`)
+        }
 
         const listing = await Listings.create({
             type,
