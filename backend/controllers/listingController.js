@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const Listings = require('../models/listingModel');
 const User = require('../models/userModel');
-const uploadImg = require('../middleware/uploadImg')
+const uploadImg = require('../helpers/uploadImg')
 
 const createListing = asyncHandler(async (req, res) => {
     try{
@@ -9,7 +9,7 @@ const createListing = asyncHandler(async (req, res) => {
         const { type, address, price, squareFeet, bedrooms, bathrooms, description } = req.body;
 
         
-        if(!type || !address || !price || !bedrooms || !bathrooms) {
+        if(!type || !address || !price || !bedrooms || !bathrooms || !req.files) {
             res.status(400);
             throw new Error('Please fill out the required information');
         };
@@ -21,8 +21,6 @@ const createListing = asyncHandler(async (req, res) => {
             throw new Error('User not found');
         };
         
-        let images = [];
-
         try {
             req.files.forEach(async (image) => {
                 await uploadImg(image).then((url) => images.push(url));
@@ -31,6 +29,11 @@ const createListing = asyncHandler(async (req, res) => {
             res.sendStatus(500);
             throw new Error(`Error: ${error}`)
         }
+
+        const bucketName = 'bucket_rre_images_storage123'
+        const images = []
+
+        req.files.forEach((image) => images.push(`https://storage.googleapis.com/${bucketName}/${image.originalname}`))
 
         const listing = await Listings.create({
             type,
