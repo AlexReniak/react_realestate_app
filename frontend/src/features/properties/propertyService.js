@@ -35,6 +35,13 @@ const getUserProperties = async (token) => {
     return response.data;
 };
 
+// Get single property
+const getProperty = async (propertyId) => {
+    const response = await axios.get(`${API_URL}/${propertyId}`)
+
+    return response.data;
+}
+
 // Update property
 const updateProperty = async (propertyData, propertyId, token) => {
     const config = {

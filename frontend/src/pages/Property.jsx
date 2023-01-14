@@ -1,11 +1,26 @@
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 function Property() {
+    const { property, isLoading, isError, isSuccess } = useSelector((state) => state.tickets);
 
-    const params = useParams();
+    const { propertyId } = useParams();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(get)
+    }, [])
 
     return (
-        <h2>Property Page, id: {params.id}</h2>
+        <div>
+            <header>
+
+            </header>
+            <main>
+
+            </main>
+        </div>
     )
 }
 
