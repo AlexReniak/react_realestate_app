@@ -71,7 +71,8 @@ const deleteProperty = async (propertyId, token) => {
 const propertyService = {
     createProperty,
     getProperties,
-    getUserProperties, 
+    getUserProperties,
+    getProperty, 
     updateProperty,
     deleteProperty
 }

@@ -27,13 +27,13 @@ const createListing = asyncHandler(async (req, res) => {
             })
         } catch (error) {
             res.sendStatus(500);
-            throw new Error(`Error: ${error}`)
-        }
+            throw new Error(`Error: ${error}`);
+        };
 
-        const bucketName = 'bucket_rre_images_storage123'
-        const images = []
+        const bucketName = 'bucket_rre_images_storage123';
+        const images = [];
 
-        req.files.forEach((image) => images.push(`https://storage.googleapis.com/${bucketName}/${image.originalname}`))
+        req.files.forEach((image) => images.push(`https://storage.googleapis.com/${bucketName}/${image.originalname}`));
 
         const listing = await Listings.create({
             type,
@@ -72,6 +72,17 @@ const getUserListings = asyncHandler(async (req, res) => {
 
     res.status(200).json(listings);
 });
+
+const getListing = asyncHandler(async (req, res) => {
+    const listing = await Listings.findById(req.params.id);
+
+    if(!listing) {
+        res.sendStatus(404);
+        throw new Error('Listing not found');
+    }
+
+    res.status(200).json(listing);
+})
 
 const updateListing = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user.id);
@@ -127,6 +138,7 @@ module.exports = {
     createListing,
     getAllListings,
     getUserListings,
+    getListing,
     updateListing,
     deleteListing
 };
