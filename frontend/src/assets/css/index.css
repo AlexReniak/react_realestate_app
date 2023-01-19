@@ -44,7 +44,7 @@ body {
   border: 2px solid var(--dark-blue);
   transition: .2s;
   cursor: pointer;
-  border-radius: .5rem;
+  border-radius: 3rem;
   text-decoration: none;
   color: #000
 }
