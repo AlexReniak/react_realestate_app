@@ -357,7 +357,7 @@ body {
   align-self: center;
 }
 
-/*  Property page */
+/* ----- Property Page ----- */
 .property__info {
   font-size: 2.2rem;
   display: flex;
@@ -384,4 +384,48 @@ body {
 
 .contact__btn {
   margin: 2rem auto;
+}
+
+/* ----- Contact Page ----- */
+.contact__form--heading {
+  font-size: 2.6rem;
+  font-weight: 500;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.contact__form--container {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.contact__form > div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.contact__form--subject {
+  font-size: 1.6rem;
+  padding: 1.2rem;
+}
+
+.contact__form--message {
+  height: 16rem;
+  padding: 1.2rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.6rem;
+}
+
+.contact__form--message:focus {
+  outline-color: var(--dark-blue);
 }

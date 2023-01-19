@@ -8,6 +8,7 @@ import Properties from './pages/Properties';
 import Property from './pages/Property';
 import Navbar from './components/Navbar';
 import CreateProperty from './pages/CreateProperty';
+import Contact from './pages/Contact';
 import 'swiper/css';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/properties' element={<Properties />}></Route>
           <Route path='/property/:propertyId' element={<Property />} />
+          <Route path='/contact' element={<Contact />} />
           <Route path='/create' element={<CreateProperty />} />
           {/* Dashboard will be protected routes for authenticated users only */}
           <Route path='/dashboard' element={<Dashboard />} />

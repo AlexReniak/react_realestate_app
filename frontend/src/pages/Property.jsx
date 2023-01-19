@@ -108,9 +108,10 @@ function Property() {
                             )}
                         </div>
 
-                    {property.user !== user._id && (
+                    {property.user === user._id && (
                         <Link
-                            to={`/contact?property=${property.address.replace(/\s/g, "_")}`}
+                            to={`/contact?property=${property.address}`}
+                            state={{ email: user.email }}
                             className="btn contact__btn"
                         >
                             Contact Realtor
