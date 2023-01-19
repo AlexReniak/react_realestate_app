@@ -13,10 +13,11 @@ function CreateProperty() {
         squareFeet: 0,
         bedrooms: 1,
         bathrooms: 1,
-        description: ''
+        description: '',
+        images: {}
     });
 
-    const { type, address, price, squareFeet, bedrooms, bathrooms, description } = formData;
+    const { type, address, price, squareFeet, bedrooms, bathrooms, description, images } = formData;
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -32,16 +33,28 @@ function CreateProperty() {
             boolean = false;
         }
 
-        setFormData((prevState) => ({
-            ...prevState,
-            [e.target.id]: boolean ?? e.target.value   
-        }))
+
+        if(e.target.files) {
+            setFormData((prevState) => ({
+                ...prevState,
+                images: e.target.files
+            }))
+        }
+
+        if(!e.target.files) {
+            setFormData((prevState) => ({
+                ...prevState,
+                [e.target.id]: boolean ?? e.target.value   
+            }))
+        }
     }
 
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        const response = await dispatch(createProperty(formData));
+        const propertyData = new FormData(document.querySelector('.property__form'))
+
+        const response = await dispatch(createProperty(propertyData));
         navigate(`/property/${response.payload._id}`)
     }
 
@@ -58,7 +71,7 @@ function CreateProperty() {
             </header>
 
             <main>
-                <form onSubmit={onSubmit} className="property__form">
+                <form onSubmit={onSubmit} className="property__form" encType='multipart/form-data'>
                     <div className='property__form--control'>
                         <p>For sale or rent?</p>
                         <div>
@@ -76,10 +89,11 @@ function CreateProperty() {
                         <input name="address" id="address" value={address} className="property__formInput" onChange={onChange} />
                     </div>
                     <div className='property__form--control'>
-                        <label htmlFor="price" className='property__form--label'>Price</label>
+                        <label htmlFor="price" className='property__form--label'>{type === 'Rent' ? 'Price (per month)' : 'Price'}</label>
                         <span className="input--dollar">
-                            <input name="price" id="price" type="number" className="property__formInput" value={price} onChange={onChange} />
+                            <input name="price" id="price" type="number" className="property__formInput" value={price} onChange={onChange} />  
                         </span>
+                        
                     </div>
                     <div className='property__form--control'>
                         <label htmlFor="squareFeet" className='property__form--label'>Square Feet (optional)</label>
@@ -97,6 +111,12 @@ function CreateProperty() {
                         <label htmlFor='description' className='property__form--label'>Description (optional)</label>
                         <textarea name="description" id="description" className="property__form--textarea" value={description} onChange={onChange} />
                     </div>
+
+                    <div className="property__form--control">
+                        <label htmlFor="images" className='property__form--label btn'>Upload Images</label>
+                        <input name="images" id="images" type="file" className='property__formImages' accept='.jpg,.jpeg' multiple onChange={onChange} />
+                    </div>
+
                     <button className="btn property__form--btn">Create</button>
                 </form>
 

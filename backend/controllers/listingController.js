@@ -4,11 +4,21 @@ const User = require('../models/userModel');
 const uploadImg = require('../helpers/uploadImg')
 
 const createListing = asyncHandler(async (req, res) => {
-    try{
 
+    try{
         const { type, address, price, squareFeet, bedrooms, bathrooms, description } = req.body;
 
-        
+        const images = [];
+
+        const handleImage = async () => {
+            return Promise.all(req.files.map((image) => 
+                uploadImg(image)
+                    .then(url => images.push(url))
+                    .catch(err => console.log(err))))
+        }
+
+        const response = await handleImage();
+
         if(!type || !address || !price || !bedrooms || !bathrooms || !req.files) {
             res.status(400);
             throw new Error('Please fill out the required information');
@@ -21,20 +31,6 @@ const createListing = asyncHandler(async (req, res) => {
             throw new Error('User not found');
         };
         
-        try {
-            req.files.forEach(async (image) => {
-                await uploadImg(image).then((url) => images.push(url));
-            })
-        } catch (error) {
-            res.sendStatus(500);
-            throw new Error(`Error: ${error}`);
-        };
-
-        const bucketName = 'bucket_rre_images_storage123';
-        const images = [];
-
-        req.files.forEach((image) => images.push(`https://storage.googleapis.com/${bucketName}/${image.originalname}`));
-
         const listing = await Listings.create({
             type,
             address,

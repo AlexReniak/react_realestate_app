@@ -313,7 +313,7 @@ body {
 
 .input--dollar:before {
   position: absolute;
-  top: -3px;
+  top: -4px;
   content: "$";
   left: 5px;
   padding-bottom: 3px;
@@ -350,6 +350,10 @@ body {
 .property__form--textarea:focus {
   outline-color: var(--dark-blue);
   border-radius: 4px;
+}
+
+.property__formImages {
+  display: none;
 }
 
 .property__form--btn {

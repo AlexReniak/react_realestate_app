@@ -6,7 +6,8 @@ const API_URL = '/api/listings'
 const createProperty = async (propertyData, token) => {
     const config = {
         headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            ContentType: 'multipart/form-data'
         }
     }
 

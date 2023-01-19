@@ -5,9 +5,9 @@ const { v4: uuidv4 } = require('uuid');
 
 const uploadImg = (image) => new Promise((resolve, reject) => {
         const { originalname, buffer, } = image
-        const id = uuidv4();
+        const imageId = uuidv4();
         
-        const uniqueName = `${originalname}${id}`
+        const uniqueName = `${originalname.replace(/\.(jpe?g|png)$/i, '')}${imageId}.jpg`
 
         const file = bucket.file(uniqueName);
 
@@ -22,8 +22,9 @@ const uploadImg = (image) => new Promise((resolve, reject) => {
           reject(error);
         })
         .on('finish', () => {
-          resolve(`https://storage.googleapis.com/${bucket.name}/${uniqueName}.jpg`)
+          resolve(`https://storage.googleapis.com/${bucket.name}/${uniqueName}`)
         })
+
 })
 
 module.exports = uploadImg;
