@@ -21,7 +21,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/properties' element={<Properties />}></Route>
+          <Route path='/properties/:filterType?' element={<Properties />}></Route>
           <Route path='/property/:propertyId' element={<Property />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/create' element={<CreateProperty />} />

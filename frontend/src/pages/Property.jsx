@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getProperty} from '../features/properties/propertySlice';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import 'swiper/swiper-bundle.css'
 import { Link, useParams } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import { FaBed, FaBath } from 'react-icons/fa';
+import 'swiper/swiper-bundle.css'
 
 
 function Property() {

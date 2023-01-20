@@ -54,8 +54,15 @@ function CreateProperty() {
 
         const propertyData = new FormData(document.querySelector('.property__form'))
 
+        
         const response = await dispatch(createProperty(propertyData));
-        navigate(`/property/${response.payload._id}`)
+
+        setLoading(true);
+
+        setTimeout(() => {
+            setLoading(false);
+            navigate(`/property/${response.payload._id}`)
+        }, 1000)
     }
 
     if(loading) {

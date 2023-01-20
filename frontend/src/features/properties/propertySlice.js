@@ -72,6 +72,21 @@ export const getProperty = createAsyncThunk('property/get', async (propertyId, t
     }
 })
 
+// Get filtered properties
+export const getFilteredProperties = createAsyncThunk('property/filterType', async (filterType, thunkAPI) => {
+    try {
+        return await propertyService.getFilteredProperties(filterType);
+    } catch (error) {
+        const message = (error.response && 
+            error.response.data && 
+            error.response.data.message) || 
+            error.message || 
+            error.toString();
+
+            return thunkAPI.rejectWithValue(message);
+    }
+})
+
 // Update property
 export const updateProperty = createAsyncThunk('property/update', async (propertyData, propertyId, thunkAPI) => {
     try {
@@ -149,6 +164,19 @@ export const propertySlice = createSlice({
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.property = action.payload;
+            })
+            .addCase(getFilteredProperties.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getFilteredProperties.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(getFilteredProperties.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.properties = action.payload;
             })
             .addCase(updateProperty.pending, (state) => {
                 state.isLoading = true;

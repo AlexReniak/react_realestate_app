@@ -43,6 +43,13 @@ const getProperty = async (propertyId) => {
     return response.data;
 }
 
+// Get filtered property
+const getFilteredProperties = async (filterType) => {
+    const response = await axios.get(`${API_URL}`)
+
+    return response.data.filter(item => item.type.toLowerCase() === filterType.toLowerCase());
+}
+
 // Update property
 const updateProperty = async (propertyData, propertyId, token) => {
     const config = {
@@ -73,7 +80,8 @@ const propertyService = {
     createProperty,
     getProperties,
     getUserProperties,
-    getProperty, 
+    getProperty,
+    getFilteredProperties, 
     updateProperty,
     deleteProperty
 }

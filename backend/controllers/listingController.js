@@ -69,6 +69,12 @@ const getUserListings = asyncHandler(async (req, res) => {
     res.status(200).json(listings);
 });
 
+const getFilteredListings = asyncHandler(async (req, res) => {
+    const listings = await Listings.find({ type: req.params.filterType })
+
+    res.status(200).json(listings);
+})
+
 const getListing = asyncHandler(async (req, res) => {
     const listing = await Listings.findById(req.params.id);
 
@@ -134,6 +140,7 @@ module.exports = {
     createListing,
     getAllListings,
     getUserListings,
+    getFilteredListings,
     getListing,
     updateListing,
     deleteListing
