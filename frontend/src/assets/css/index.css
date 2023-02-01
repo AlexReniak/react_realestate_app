@@ -486,10 +486,7 @@ body {
 }
 
 .property__body-type {
-  position: absolute;
-  top: 0;
-  right: 12px;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
 }
 
 .property__body > div {
@@ -504,7 +501,7 @@ body {
 
 .property__body-price {
   font-size: 2rem;
-  margin-bottom: 5rem;
+  margin-bottom: 3.5rem;
 }
 
 .property__body-date {
@@ -517,4 +514,38 @@ body {
 
 .property__body-btn {
   margin: 4rem 0;
+}
+
+.property__body-edit {
+  position: absolute;
+  right: 3rem;
+  top: 0;
+  padding: 0;
+  color: #00b33c;
+  font-size: 2.4rem;
+}
+
+.property__body-delete {
+  position: absolute;
+  right: 0rem;
+  top: 5px;
+  padding: 0;
+  color: #ff0000;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* ----- Dashboard ----- */
+.btn__containter {
+  display: flex;
+  justify-content: flex-end;
+}
+.dashboard__btn {
+  align-items: center;
+  margin-right: 2rem;
+  display: flex;
+}
+
+.dashboard__icon {
+  font-size: 3rem;
 }

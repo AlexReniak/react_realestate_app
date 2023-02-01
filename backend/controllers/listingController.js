@@ -64,7 +64,7 @@ const getUserListings = asyncHandler(async (req, res) => {
         throw new Error('User not found');
     };
 
-    const listings = await Listings.find({ user: user._id});
+    const listings = await Listings.find({ user: user._id });
 
     res.status(200).json(listings);
 });

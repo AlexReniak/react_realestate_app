@@ -43,9 +43,17 @@ export const getAllProperties = createAsyncThunk('property/getAll', async (_, th
 
 // Get user posted properties
 export const getUserProperties = createAsyncThunk('property/getUserProperties', async (_, thunkAPI) => {
-    try {
-        const token = thunkAPI.getState().auth.user.token;
+    try { 
+        if(!thunkAPI.getState().auth.user.token) {
+            setTimeout(() => {
+                const token = thunkAPI.getState().auth.user.token
+                return propertyService.getUserProperties(token);
+            }, 1000)
+        }
+
+        const token = thunkAPI.getState().auth.user.token
         return await propertyService.getUserProperties(token);
+
     } catch(error) {
         const message = (error.response && 
             error.response.data && 
@@ -174,6 +182,19 @@ export const propertySlice = createSlice({
                 state.message = action.payload;
             })
             .addCase(getFilteredProperties.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.properties = action.payload;
+            })
+            .addCase(getUserProperties.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getUserProperties.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(getUserProperties.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.properties = action.payload;
