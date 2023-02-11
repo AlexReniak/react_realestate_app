@@ -87,6 +87,25 @@ const getListing = asyncHandler(async (req, res) => {
 })
 
 const updateListing = asyncHandler(async (req, res) => {
+
+    parseImages = JSON.parse(req.body.images)
+    console.log(Object.values(parseImages))
+
+    const images = Object.values(parseImages)
+
+    if(req.files.length > 0) {
+        const handleImage = async () => {
+            return Promise.all(req.files.map((image) => 
+                uploadImg(image)
+                    .then(url => images.push(url))
+                    .catch(err => console.log(err))))
+        }
+
+        const response = await handleImage();
+    }
+
+    const { type, address, price, squareFeet, bedrooms, bathrooms, description } = req.body; 
+
     const user = await User.findById(req.user.id);
 
     if(!user) {
@@ -106,7 +125,16 @@ const updateListing = asyncHandler(async (req, res) => {
         throw new Error('Not Authorized');
     }
 
-    const updatedListing = await Listings.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updatedListing = await Listings.findByIdAndUpdate(req.params.id, {
+        type,
+        address,
+        price,
+        squareFeet,
+        bedrooms,
+        bathrooms,
+        description,
+        images
+    }, { new: true });
 
     res.status(200).json(updatedListing);
 });

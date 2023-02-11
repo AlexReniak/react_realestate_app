@@ -44,13 +44,6 @@ export const getAllProperties = createAsyncThunk('property/getAll', async (_, th
 // Get user posted properties
 export const getUserProperties = createAsyncThunk('property/getUserProperties', async (_, thunkAPI) => {
     try { 
-        if(!thunkAPI.getState().auth.user.token) {
-            setTimeout(() => {
-                const token = thunkAPI.getState().auth.user.token
-                return propertyService.getUserProperties(token);
-            }, 1000)
-        }
-
         const token = thunkAPI.getState().auth.user.token
         return await propertyService.getUserProperties(token);
 
@@ -96,7 +89,7 @@ export const getFilteredProperties = createAsyncThunk('property/filterType', asy
 })
 
 // Update property
-export const updateProperty = createAsyncThunk('property/update', async (propertyData, propertyId, thunkAPI) => {
+export const updateProperty = createAsyncThunk('property/update', async ({propertyData, propertyId}, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token;
         return await propertyService.updateProperty(propertyData, propertyId, token);
@@ -202,15 +195,15 @@ export const propertySlice = createSlice({
             .addCase(updateProperty.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(updateProperty.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
-            })
             .addCase(updateProperty.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.property = action.payload;
+            })
+            .addCase(updateProperty.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
             })
             .addCase(deleteProperty.fulfilled, (state, action) => {
                 state.isLoading = false;

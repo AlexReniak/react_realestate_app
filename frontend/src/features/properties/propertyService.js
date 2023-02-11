@@ -54,11 +54,12 @@ const getFilteredProperties = async (filterType) => {
 const updateProperty = async (propertyData, propertyId, token) => {
     const config = {
         headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            ContentType: 'multipart/form-data'
         }
     }
 
-    const response = await axios.post(`${API_URL}/${propertyId}`, propertyData, config);
+    const response = await axios.put(`${API_URL}/${propertyId}`, propertyData, config);
 
     return response.data;
 };

@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getProperty, updateProperty } from '../features/properties/propertySlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 
 function EditProperty() {
-    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         type: 'rent',
         address: '',
@@ -14,13 +13,26 @@ function EditProperty() {
         bedrooms: 1,
         bathrooms: 1,
         description: '',
-        images: {}
     });
 
-    const { type, address, price, squareFeet, bedrooms, bathrooms, description, images } = formData;
+    const { type, address, price, squareFeet, bedrooms, bathrooms, description } = formData;
+
+    const { property, isLoading, isError, message, isSuccess } = useSelector((state) => state.properties)
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const params = useParams();
+
+    useEffect(() => {
+
+        dispatch(getProperty(params.id))
+
+        if(isSuccess) {
+            setFormData({...property})
+        }
+        
+        
+    }, [isSuccess, params.id])
 
     const onChange = (e) => {
         let boolean = null;
@@ -32,7 +44,6 @@ function EditProperty() {
         if (e.target.value === 'false') {
             boolean = false;
         }
-
 
         if(e.target.files) {
             setFormData((prevState) => ({
@@ -50,24 +61,25 @@ function EditProperty() {
     }
 
     const onSubmit = async (e) => {
-        // e.preventDefault();
+        e.preventDefault();
 
-        // const propertyData = new FormData(document.querySelector('.property__form'))
+        const propertyData = new FormData(document.querySelector('.property__form'))
 
         
-        // const response = await dispatch(createProperty(propertyData));
+        const images = JSON.stringify({...property.images})
 
-        // setLoading(true);
+        propertyData.append('images', images);
 
-        // setTimeout(() => {
-        //     setLoading(false);
-        //     navigate(`/property/${response.payload._id}`)
-        // }, 1000)
+        const response = await dispatch(updateProperty({propertyData, propertyId: params.id}));
+
+        setTimeout(() => {
+            navigate(`/property/${response.payload._id}`)
+        }, 1000)
     }
 
-    if(loading) {
+    if(isLoading) {
         return (
-            <Spinner />
+            <Spinner isLoading={isLoading} />
         )
     }
 
@@ -83,11 +95,15 @@ function EditProperty() {
                         <p>For sale or rent?</p>
                         <div>
                             <label htmlFor='type'>Sale</label>
-                            <input name="type" id="type" className='property__form--radio' type="radio" value="Sale" onChange={onChange} />
+                            <input name="type" id="type" className='property__form--radio radio-btn-sale' type="radio" value='Sale' onChange={onChange} 
+                            defaultChecked={type === 'Sale' ? true : false}
+                            />
                         </div>
                         <div>
                             <label htmlFor='type'>Rent</label>
-                            <input name="type" id="type" className='property__form--radio' type="radio" value="Rent" onChange={onChange} />
+                            <input name="type" id="type" className='property__form--radio radio-btn-rent' type="radio" value='Rent' onChange={onChange} 
+                            defaultChecked={type === 'Rent' ? true : false}
+                            />
                         </div>
                     </div>
  
@@ -124,7 +140,7 @@ function EditProperty() {
                         <input name="images" id="images" type="file" className='property__formImages' accept='.jpg,.jpeg' multiple onChange={onChange} />
                     </div>
 
-                    <button className="btn property__form--btn">Create</button>
+                    <button className="btn property__form--btn">Update</button>
                 </form>
 
             </main>

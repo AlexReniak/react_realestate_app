@@ -53,7 +53,6 @@ function CreateProperty() {
         e.preventDefault();
 
         const propertyData = new FormData(document.querySelector('.property__form'))
-
         
         const response = await dispatch(createProperty(propertyData));
 
@@ -67,7 +66,7 @@ function CreateProperty() {
 
     if(loading) {
         return (
-            <Spinner />
+            <Spinner isLoading={loading} />
         )
     }
 
