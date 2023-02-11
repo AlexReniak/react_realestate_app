@@ -88,8 +88,7 @@ const getListing = asyncHandler(async (req, res) => {
 
 const updateListing = asyncHandler(async (req, res) => {
 
-    parseImages = JSON.parse(req.body.images)
-    console.log(Object.values(parseImages))
+    const parseImages = JSON.parse(req.body.images)
 
     const images = Object.values(parseImages)
 
