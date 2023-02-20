@@ -1,73 +1,56 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Header from "../components/Header";
 import Card from "../components/Card";
-import Spinner from '../components/Spinner';
-import Modal from 'react-modal';
-import { FaHome, FaBuilding } from 'react-icons/fa'
-import { BsX } from 'react-icons/bs'
-
-
-const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      height: '50rem',
-      transform: 'translate(-50%, -50%)',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#e6e6e6'
-    },
-  };
-
-Modal.setAppElement('#root');
+import { ReactComponent as RentIcon} from '../assets/icons/rent.svg'
+import { ReactComponent as SellIcon} from '../assets/icons/sell.svg'
+import { ReactComponent as SearchIcon} from '../assets/icons/search.svg'
 
 function Home() {
-    const [modalIsOpen, setModalIsOpen] = useState(false);
 
-    const openModal = () => setModalIsOpen(true);
+    const navigate = useNavigate();
 
-    const closeModal = () => setModalIsOpen(false);
-
-    // if(loading) {
-    //     return (
-    //         <Spinner isLoading={loading} />
-    //     )
-    // }
+    const onClick = (param) => {
+        if(param) {
+            navigate(`/properties/${param}`)
+        } else {
+            navigate('/properties')
+        }
+    }
 
     return (
         <>
             <Header />
 
-            <div className="container">
+            <h2 className="home__heading">Looking to Buy or Rent?</h2>
 
-                {/* Add 3 most recently added properties here */}
+            <div className="home__container">
 
-                <button className="btn home__btn" onClick={openModal}>Browse Properties</button>
+                <Card customClassName={"home__card"} heading={<SellIcon className="home__card--icon" />} onClick={() => onClick('Sale')}>
+                    <p className="home__card--text">Buy</p>
+                </Card>
 
-                <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
-                    <span className="home__card--close" onClick={closeModal}><BsX /></span>
-                    <h2 className='home__card--title'>What type of properties are you looking for?</h2>
-                    <div className="home__card--container">
-                        <Card customClassName={"home__card"} heading={<FaHome className='home__card--heading' />}>
-                            <Link to="/properties/sale" className="btn home__card--btn">Properties for sale</Link>
-                        </Card>
-                        <Card customClassName={"home__card"} heading={<FaBuilding className='home__card--heading' />}>
-                            <Link to="/properties/rent" className="btn home__card--btn">Properties for rent</Link>
-                        </Card>
-                        <Card customClassName={"home__card"} heading={<FaBuilding className='home__card--heading' />}>
-                            <Link to="/properties" className="btn home__card--btn">All Properties</Link>
-                        </Card>
-                    </div>
-                </Modal>
+                <Card customClassName={"home__card"} heading={<RentIcon className="home__card--icon" />} onClick={() => onClick('Rent')}>
+                    <p className="home__card--text">Rent</p>
+                </Card>
+
+                <Card customClassName={"home__card"} heading={<SearchIcon className="home__card--icon" />} onClick={() => onClick()}>
+                    <p className="home__card--text">View all Properties</p>
+                </Card>
 
             </div>
+
+            <hr className="home__line"/>
             
+            <h2 className="home__heading">Looking to sell or rent?</h2>
+
+            <p className="home__text">Login or create an account to post your listing</p>
+
+            <div className="home__btn--container">
+                <Link to="/login" className="btn home__btn">Login</Link>
+                <Link to="/sign-up" className="btn home__btn">Sign Up</Link>
+            </div>
+
+
         </>
     )
 }

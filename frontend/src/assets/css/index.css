@@ -56,14 +56,12 @@ body {
 .card {
   height: 30rem;
   width: 20rem;
-  margin: 0 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: #fff;
   border-radius: 6px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .spinner-container {
@@ -164,54 +162,65 @@ body {
   grid-row: 2 / 3;
 }
 
-/* Browse section */
-.home__btn {
-  margin: 8rem auto;
+/* Category section */
+.home__heading {
+  margin-top: 4rem;
+  font-size: 2.4rem;
+  font-weight: 300;
+  text-align: center;
 }
 
-.home__card--container {
-  display: flex;
+.home__container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 30rem;
+  justify-items: center;
+  margin: 2rem 0;
+}
+
+.home__card--icon {
+  height: 10rem;
+  width: 10rem;
 }
 
 .home__card {
+  width: 100%;
+  cursor: pointer;
+  transform: scale(.9);
   transition: all .2s;
 }
 
 .home__card:hover {
-  transform: translateY(-3px);
+  transform: scale(1);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 4px;
 }
 
-.home__card--title {
-  margin: 2rem 0;
-  font-size: 2.8rem;
-  font-weight: 400;
+.home__card--text {
+  font-size: 2.4rem;
 }
 
-.home__card--heading {
-  margin: 4rem 0rem;
-  height: 4rem;
-  width: 4rem;
+.home__line {
+  height: 1px;
+  border-width: 0;
+  background-color: var(--dark-grey);
+  margin: 0 auto;
+  margin-bottom: 4rem;
+  width: 80%;
 }
 
-.home__card--btn {
-  margin-bottom: 6rem;
-  text-decoration: none;
-  color: #000;
+.home__text {
+  font-size: 1.6rem;
+  text-align: center;
+  padding: 2rem;
 }
 
-.home__card--close {
-  position: absolute;
-  top: 2rem;
-  right: 3rem;
-  font-weight: 600;
-  font-size: 4rem;
-  color: #262626;
-  cursor: pointer;
-  transition: all .2s;
+.home__btn--container {
+  display: flex;
+  justify-content: center;
 }
 
-.home__card--close:hover {
-  color: #999999;
+.home__btn {
+  margin: 2rem;
 }
 
 /* ----- Login / Sign up Page ----- */
