@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, reset } from '../features/auth/authSlice';
 import Spinner from '../components/Spinner';
+import Footer from '../components/Footer';
 
 function Login() {
 
@@ -77,6 +78,9 @@ function Login() {
             <div className="redirect__btn">
                 <Link to="/sign-up" className="btn form__btn--secondary">Sign Up</Link>
             </div>
+
+            <Footer />
+
         </div>
     )
 }

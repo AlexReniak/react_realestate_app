@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropertyItem from '../components/PropertyItem';
+import Footer from '../components/Footer';
 import { getUserProperties, deleteProperty, reset } from '../features/properties/propertySlice';
 import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
@@ -55,6 +56,9 @@ function Dashboard() {
                     <PropertyItem key={property._id} property={property} onEdit={true} onDelete={onDelete} />
                 ))}
             </main>
+            
+            <Footer />
+            
         </div>
     )
 }

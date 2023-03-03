@@ -1,6 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom';
 import Header from "../components/Header";
 import Card from "../components/Card";
+import Footer from '../components/Footer';
 import { ReactComponent as RentIcon} from '../assets/icons/rent.svg'
 import { ReactComponent as SellIcon} from '../assets/icons/sell.svg'
 import { ReactComponent as SearchIcon} from '../assets/icons/search.svg'
@@ -50,6 +51,7 @@ function Home() {
                 <Link to="/sign-up" className="btn home__btn">Sign Up</Link>
             </div>
 
+            <Footer />
 
         </>
     )

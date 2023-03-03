@@ -1,12 +1,13 @@
+import { Link } from "react-router-dom";
+
 function Footer() {
     return (
-        <footer>
-            <ul>
-                <li>Home</li>
-                <li>Properties</li>
-                <li>About</li>
+        <footer className="footer__container">
+            <ul className="footer__list">
+                <li className="footer__item"><Link to='/' className="footer__link">Home</Link></li>
+                <li className="footer__item"><Link to='/properties' className="footer__link">Properties</Link></li>
             </ul>
-            <p>&#169; React Real estate</p>
+            <p className="footer__text">&#169; React Real Estate</p>
         </footer>
     )
 }

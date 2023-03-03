@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import PropertyItem from '../components/PropertyItem';
+import Footer from '../components/Footer';
 import { getAllProperties, getFilteredProperties } from '../features/properties/propertySlice';
 import Spinner from '../components/Spinner';
 
@@ -46,6 +47,9 @@ function Properties() {
                     <PropertyItem key={property._id} property={property} />
                 ))}
             </main>
+
+            <Footer />
+
         </div>
     )
 }
