@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
-function Footer() {
+function Footer({ customClass }) {
     return (
-        <footer className="footer__container">
+        <footer className={`footer__container ${customClass}`}>
             <ul className="footer__list">
                 <li className="footer__item"><Link to='/' className="footer__link">Home</Link></li>
                 <li className="footer__item"><Link to='/properties' className="footer__link">Properties</Link></li>

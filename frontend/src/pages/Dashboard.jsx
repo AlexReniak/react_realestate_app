@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropertyItem from '../components/PropertyItem';
-import Footer from '../components/Footer';
 import { getUserProperties, deleteProperty, reset } from '../features/properties/propertySlice';
 import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
 import { BsPlus } from 'react-icons/bs';
+import Footer from '../components/Footer';
 
 function Dashboard() {
 
@@ -40,26 +40,28 @@ function Dashboard() {
     };
 
     return (
-        <div className="dashboard">
-            <header className="dashboard__header">
-                <h2 className="dashboard__text">Hello, {user.name}</h2>
-                <h2>Email: {user.email}</h2>
-            </header>
+        <>
+            <div className="dashboard">
+                <header className="dashboard__header">
+                    <h2 className="dashboard__text">Hello, {user.name}</h2>
+                    <h2>Email: {user.email}</h2>
+                </header>
 
-            <main>
-                <div className="btn__containter">
-                    <Link to='/create' className="btn dashboard__btn">
-                        <BsPlus className="dashboard__icon" /> Add Property
-                    </Link>
-                </div>
-                {properties.map((property) => (
-                    <PropertyItem key={property._id} property={property} onEdit={true} onDelete={onDelete} />
-                ))}
-            </main>
-            
+                <main>
+                    <div className="btn__containter">
+                        <Link to='/create' className="btn dashboard__btn">
+                            <BsPlus className="dashboard__icon" /> Add Property
+                        </Link>
+                    </div>
+                    {properties.map((property) => (
+                        <PropertyItem key={property._id} property={property} onEdit={true} onDelete={onDelete} />
+                    ))}
+                </main>
+                
+                
+            </div>
             <Footer />
-            
-        </div>
+        </>
     )
 }
 

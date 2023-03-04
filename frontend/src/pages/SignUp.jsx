@@ -63,38 +63,40 @@ function SignUp() {
     }
 
     return (
-        <div className="container login__container">
+        <>
+            <div className="container login__container">
 
-            <h3 className="login__heading">Sign Up</h3>
+                <h3 className="login__heading">Sign Up</h3>
 
-            <section>
-                <form className="form" onSubmit={onSubmit}>
-                <div className="form__group">
-                        <input type="text" id="name" className="form__input" required value={name} onChange={onChange} placeholder="Name"/>
-                    </div>
+                <section>
+                    <form className="form" onSubmit={onSubmit}>
                     <div className="form__group">
-                        <input type="email" id="email" className="form__input" required value={email} onChange={onChange} placeholder="Email"/>
-                    </div>
-                    <div className="form__group">
-                        <input type="password" id="password" className="form__input" required value={password} onChange={onChange} placeholder="Password"/>
-                    </div>
-                    <div className="form__group">
-                        <input type="password" id="password2" className="form__input" required value={password2} onChange={onChange} placeholder="Confirm password"/>
-                    </div>
-                    <button className="btn form__btn">Sign Up</button>
-                </form>
+                            <input type="text" id="name" className="form__input" required value={name} onChange={onChange} placeholder="Name"/>
+                        </div>
+                        <div className="form__group">
+                            <input type="email" id="email" className="form__input" required value={email} onChange={onChange} placeholder="Email"/>
+                        </div>
+                        <div className="form__group">
+                            <input type="password" id="password" className="form__input" required value={password} onChange={onChange} placeholder="Password"/>
+                        </div>
+                        <div className="form__group">
+                            <input type="password" id="password2" className="form__input" required value={password2} onChange={onChange} placeholder="Confirm password"/>
+                        </div>
+                        <button className="btn form__btn">Sign Up</button>
+                    </form>
 
-            </section>
+                </section>
 
-            <p className="form__text--sub">Already have an account?</p>
+                <p className="form__text--sub">Already have an account?</p>
 
-            <div className="redirect__btn">
-                <Link to="/login" className="btn form__btn--secondary">Login</Link>
+                <div className="redirect__btn">
+                    <Link to="/login" className="btn form__btn--secondary">Login</Link>
+                </div>
+
+
             </div>
-
-            <Footer />
-
-        </div>
+            <Footer customClass={'footer__bottom'}/>
+        </>
     )
 }
 

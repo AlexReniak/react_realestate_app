@@ -76,15 +76,19 @@ const getFilteredListings = asyncHandler(async (req, res) => {
 })
 
 const getListing = asyncHandler(async (req, res) => {
-    const listing = await Listings.findById(req.params.id);
+        const listing = await Listings.findById(req.params.id)
 
-    if(!listing) {
-        res.sendStatus(404);
-        throw new Error('Listing not found');
-    }
+        if(!listing) {
+            res.sendStatus(404);
+            throw new Error('Listing not found');
+        }
 
-    res.status(200).json(listing);
-})
+        const user = await User.findById(listing.user)
+
+        const { email } = user
+
+        res.status(200).json({listing, email});
+});
 
 const updateListing = asyncHandler(async (req, res) => {
 

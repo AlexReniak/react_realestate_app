@@ -164,7 +164,8 @@ export const propertySlice = createSlice({
             .addCase(getProperty.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                state.property = action.payload;
+                state.property = action.payload.listing;
+                state.property.email = action.payload.email
             })
             .addCase(getFilteredProperties.pending, (state) => {
                 state.isLoading = true;

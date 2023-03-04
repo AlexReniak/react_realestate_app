@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import PropertyItem from '../components/PropertyItem';
-import Footer from '../components/Footer';
 import { getAllProperties, getFilteredProperties } from '../features/properties/propertySlice';
 import Spinner from '../components/Spinner';
+import Footer from '../components/Footer';
 
 function Properties() {
     const { properties, isLoading, isError, message } = useSelector((state) => state.properties);
@@ -28,7 +28,7 @@ function Properties() {
 
     if(isLoading) {
         return (
-            <Spinner />
+            <Spinner isLoading={isLoading} />
         )
     }
 
@@ -42,14 +42,12 @@ function Properties() {
                 </div>
             </header>
 
-            <main>
+            <main className="properties__main">
                 {properties.map((property) => (
                     <PropertyItem key={property._id} property={property} />
                 ))}
             </main>
-
             <Footer />
-
         </div>
     )
 }

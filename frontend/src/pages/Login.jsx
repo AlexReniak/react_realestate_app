@@ -79,8 +79,7 @@ function Login() {
                 <Link to="/sign-up" className="btn form__btn--secondary">Sign Up</Link>
             </div>
 
-            <Footer />
-
+            <Footer customClass={'footer__bottom'}/>
         </div>
     )
 }

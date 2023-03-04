@@ -7,11 +7,11 @@ import { Link, useParams } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import { FaBed, FaBath } from 'react-icons/fa';
 import 'swiper/swiper-bundle.css'
+import Footer from '../components/Footer';
 
 
 function Property() {
     const { property, isError, isLoading } = useSelector((state) => state.properties);
-    const { user } = useSelector((state) => state.auth);
     const [loading, setLoading] = useState(true);
 
     const { propertyId } = useParams();
@@ -35,8 +35,7 @@ function Property() {
 
     if(loading || isLoading) {
         return (
-            <Spinner />
-
+            <Spinner isLoading={loading || isLoading} />
         )
     }
 
@@ -108,19 +107,18 @@ function Property() {
                             )}
                         </div>
 
-                    {property.user === user._id && (
                         <Link
                             to={`/contact?property=${property.address}`}
-                            state={{ email: user.email }}
+                            state={{ email: property.email }}
                             className="btn contact__btn"
                         >
                             Contact Realtor
                         </Link>
-                    )}
 
                     </div>
                 </div>
             </main>
+            <Footer />
         </div>
     )
 }
