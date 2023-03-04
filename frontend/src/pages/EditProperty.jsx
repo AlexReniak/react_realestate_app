@@ -4,6 +4,7 @@ import { getProperty, updateProperty } from '../features/properties/propertySlic
 import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import Footer from '../components/Footer';
+import { toast } from 'react-toastify';
 
 function EditProperty() {
     const [formData, setFormData] = useState({
@@ -25,6 +26,10 @@ function EditProperty() {
     const params = useParams();
 
     useEffect(() => {
+
+        if(isError) {
+            toast.error(isError);
+        }
 
         dispatch(getProperty(params.id))
 

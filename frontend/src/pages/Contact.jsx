@@ -9,7 +9,6 @@ function Contact() {
     
     const onChange = (e) => setMessage(e.target.value);
 
-
     return (
         <>
             <div className="container">

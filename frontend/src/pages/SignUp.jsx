@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { register, reset } from '../features/auth/authSlice';
 import Spinner from '../components/Spinner';
 import Footer from '../components/Footer';
+import { toast } from 'react-toastify';
 
 function SignUp() {
 
@@ -23,7 +24,7 @@ function SignUp() {
 
     useEffect(() => {
         if(isError) {
-            alert(`Error: ${message}`);
+            toast.error(isError);
         }
 
         if(user || isSuccess) {

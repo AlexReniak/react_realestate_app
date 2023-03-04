@@ -5,6 +5,7 @@ import PropertyItem from '../components/PropertyItem';
 import { getAllProperties, getFilteredProperties } from '../features/properties/propertySlice';
 import Spinner from '../components/Spinner';
 import Footer from '../components/Footer';
+import { toast } from 'react-toastify';
 
 function Properties() {
     const { properties, isLoading, isError, message } = useSelector((state) => state.properties);
@@ -15,6 +16,11 @@ function Properties() {
 
 
     useEffect(() => {
+
+        if(isError) {
+            toast.error(isError);
+        }
+
         filterType ? dispatch(getFilteredProperties(filterType)) : dispatch(getAllProperties())        
     }, [filterType])
 

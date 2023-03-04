@@ -11,6 +11,8 @@ import CreateProperty from './pages/CreateProperty';
 import EditProperty from './pages/EditProperty';
 import Contact from './pages/Contact';
 import PrivateRoute from './components/PrivateRoute';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import 'swiper/css';
 
 function App() {
@@ -37,6 +39,7 @@ function App() {
           </Route>
         </Routes>
       </Router>
+      <ToastContainer />
     </>
   );
 }

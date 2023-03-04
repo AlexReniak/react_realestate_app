@@ -6,6 +6,7 @@ import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
 import { BsPlus } from 'react-icons/bs';
 import Footer from '../components/Footer';
+import { toast } from 'react-toastify';
 
 function Dashboard() {
 
@@ -15,6 +16,10 @@ function Dashboard() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+
+        if(isError) {
+            toast.error(isError);
+        }
 
         dispatch(getUserProperties());
 
