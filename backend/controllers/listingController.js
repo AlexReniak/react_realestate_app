@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const Listings = require('../models/listingModel');
 const User = require('../models/userModel');
-const uploadImg = require('../helpers/uploadImg')
+const uploadImg = require('../middleware/uploadImg')
 
 const createListing = asyncHandler(async (req, res) => {
 
