@@ -5,7 +5,7 @@ React Real Estate App is a simple web application that allows users to search fo
 Users can browse properties for sale or for rent, or create an account and post their properties for sale or rent. Each property has detailed information, including pictures and amenities.
 
 ## Technologies Used
-React Realestate is built using the following technologies:
+React Real estate is built using the following technologies:
 
 - React
 - Redux
@@ -18,6 +18,6 @@ React Realestate is built using the following technologies:
 ## Deployment
 Website deployed at: https://ar-react-realestate-5735985b13c4.herokuapp.com/
 
-### Test credentials:
-email: alex@gmail.com
-password: password
+test credentials:
+<br>email: alex@gmail.com
+<br>password: password
