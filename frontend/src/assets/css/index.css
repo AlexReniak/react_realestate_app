@@ -172,6 +172,8 @@ body {
 /* Footer */
 .footer__container {
   background-color: var(--dark-blue);
+  width: 100%;
+  overflow:visible;
 }
 
 .footer__list {

@@ -39,21 +39,24 @@ function Properties() {
     }
 
     return (
-        <div className="container">
-            <header className="properties__head-container">
-                <h2 className="properties__heading">Searching for: {filterType ? `Properties for ${filterType}` : 'All Properties'}</h2>
-                <div>
-                    <button className="btn properties__btn" onClick={handleRental}>Browse Rentals</button>
-                    <button className="btn properties__btn" onClick={handleSale}>Browse Sale</button>
-                </div>
-            </header>
+        <div>
+            <div className="container">
+                <header className="properties__head-container">
+                    <h2 className="properties__heading">Searching for: {filterType ? `Properties for ${filterType}` : 'All Properties'}</h2>
+                    <div>
+                        <button className="btn properties__btn" onClick={handleRental}>Browse Rentals</button>
+                        <button className="btn properties__btn" onClick={handleSale}>Browse Sale</button>
+                    </div>
+                </header>
 
-            <main className="properties__main">
-                {properties.map((property) => (
-                    <PropertyItem key={property._id} property={property} />
-                ))}
-            </main>
+                <main className="properties__main">
+                    {properties.map((property) => (
+                        <PropertyItem key={property._id} property={property} />
+                    ))}
+                </main>
+            </div>
             <Footer />
+
         </div>
     )
 }
