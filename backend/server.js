@@ -3,6 +3,7 @@ require('dotenv').config();
 const connectDB = require('./config/db');
 const routes = require('./routes/index');
 const multer = require('multer');
+const path = require('path');
 
 connectDB();
 
@@ -22,6 +23,15 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 app.use(routes);
+
+// Set build folder as static
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+    app.get('*', (req, res) => {
+        res.sendFile(__dirname, '../', 'frontend', 'build', 'index.html')
+    });  
+}
 
 app.listen(port, () => {
     console.log(`App is running on port: ${port}`);
