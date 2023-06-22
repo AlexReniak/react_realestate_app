@@ -16,3 +16,6 @@ React Realestate is built using the following technologies:
 - MongoDB
 
 Website deployed at: https://ar-react-realestate-5735985b13c4.herokuapp.com/
+Test credentials:
+email: alex@gmail.com
+password: password
