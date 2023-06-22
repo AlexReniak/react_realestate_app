@@ -18,7 +18,7 @@ function Properties() {
     useEffect(() => {
 
         if(isError) {
-            toast.error(isError);
+            toast.error(message);
         }
 
         filterType ? dispatch(getFilteredProperties(filterType)) : dispatch(getAllProperties())        
