@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropertyItem from '../components/PropertyItem';
 import { getUserProperties, deleteProperty, reset } from '../features/properties/propertySlice';
 import Spinner from '../components/Spinner';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import { BsPlus } from 'react-icons/bs';
 import Footer from '../components/Footer';
 import { toast } from 'react-toastify';
@@ -16,6 +16,10 @@ function Dashboard() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+
+        if(!user) {
+            redirect('/login');
+        }
 
         if(isError) {
             toast.error(isError);
