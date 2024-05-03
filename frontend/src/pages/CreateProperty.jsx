@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createProperty, } from '../features/properties/propertySlice';
 import { useNavigate } from 'react-router-dom';
+import { Loader } from '@googlemaps/js-api-loader';
 import Spinner from '../components/Spinner';
 import Footer from '../components/Footer';
 
@@ -10,6 +11,10 @@ function CreateProperty() {
     const [formData, setFormData] = useState({
         type: 'rent',
         address: '',
+        city: '',
+        state: '',
+        postcode: '',
+        coordinates: { lat: null, lng: null},
         price: 0,
         squareFeet: 0,
         bedrooms: 1,
@@ -18,7 +23,24 @@ function CreateProperty() {
         images: {}
     });
 
-    const { type, address, price, squareFeet, bedrooms, bathrooms, description, images } = formData;
+    useEffect(() => {
+        initAutocomplete();
+    }, [])
+
+    const { 
+        type, 
+        address, 
+        city, 
+        state,
+        postcode, 
+        coordinates, 
+        price, 
+        squareFeet, 
+        bedrooms, 
+        bathrooms, 
+        description, 
+        images 
+    } = formData;
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -45,7 +67,7 @@ function CreateProperty() {
         if(!e.target.files) {
             setFormData((prevState) => ({
                 ...prevState,
-                [e.target.id]: boolean ?? e.target.value   
+                [e.target.id]: boolean ?? e.target.value 
             }))
         }
     }
@@ -65,6 +87,75 @@ function CreateProperty() {
         }, 1000)
     }
 
+    const loader = new Loader({
+        apiKey: 'AIzaSyA0mCXusgXn5kQWE62ecdyL3ZU6TP44Koc',
+        version: "weekly",
+    });
+
+    let autocomplete;
+    let addressField;
+    let postalField;
+
+    const initAutocomplete = () => {
+        addressField = document.getElementById('address');
+        postalField = document.getElementById('postcode');
+
+        loader
+            .importLibrary('places')
+            .then(({ Autocomplete }) => {
+                autocomplete = new Autocomplete(addressField, {
+                    componentRestrictions: { country: ['us'] },
+                    fields: ['address_components', 'geometry'],
+                    types: ['address'], 
+                });
+                addressField.focus();
+                autocomplete.addListener("place_changed", fillInAddress);
+            })
+            .catch(error => console.log(error));
+        }
+
+    function fillInAddress() {
+        const place = autocomplete.getPlace();
+
+        let address1 = "";
+        let postcode = "";
+
+        setFormData((prevState) => ({
+            ...prevState,
+            coordinates: {
+                lat: place.geometry.location.lat(),
+                lng: place.geometry.location.lng()
+            }
+        }));
+
+        for (const component of place.address_components) {
+
+            const componentType = component.types[0];
+        
+            switch (componentType) {
+            case "street_number": {  
+                address1 = `${component.long_name} ${address1}`;
+                break;
+            }
+            case "route": {
+                address1 += component.short_name;
+                break;
+            }
+            case "city":
+                document.getElementById("city").value = component.long_name;
+                break;
+            case "state":
+                document.getElementById('state').value = component.long_name;
+                break; 
+            case "postal_code":
+                postcode = `${component.long_name}${postcode}`;
+                break;
+            }
+            addressField.value = address1;
+            postalField.value = postcode;
+        }
+    }
+
     if(loading) {
         return (
             <Spinner isLoading={loading} />
@@ -81,6 +172,22 @@ function CreateProperty() {
                 <main>
                     <form onSubmit={onSubmit} className="property__form" encType='multipart/form-data'>
                         <div className='property__form--control'>
+                            <input name="address" id="address" value={address} className="property__formInput" autoComplete='off' onChange={onChange} />
+                            <span className="form__label">Address</span>
+                        </div>
+                        <div className='property__form--control'>
+                            <input name="city" id="city" value={city} className="property__formInput" autoComplete='off' onChange={onChange} />
+                            <span className="form__label">City</span>
+                        </div>
+                        <div className='property__form--control'>
+                            <input name="state" id="state" value={state} className="property__formInput" autoComplete='off' onChange={onChange} />
+                            <span className="form__label">State</span>
+                        </div>
+                        <div className='property__form--control'>
+                            <input name="postcode" id="postcode" value={postcode} className="property__formInput" autoComplete='off' onChange={onChange} />
+                            <span className="form__label">Postal code</span>
+                        </div>
+                        <div className='property__form--control'>
                             <p>For sale or rent?</p>
                             <div>
                                 <label htmlFor='type'>Sale</label>
@@ -93,31 +200,27 @@ function CreateProperty() {
                         </div>
     
                         <div className='property__form--control'>
-                            <label htmlFor="address" className='property__form--label'>Address</label>
-                            <input name="address" id="address" value={address} className="property__formInput" onChange={onChange} />
-                        </div>
-                        <div className='property__form--control'>
-                            <label htmlFor="price" className='property__form--label'>{type === 'Rent' ? 'Price (per month)' : 'Price'}</label>
                             <span className="input--dollar">
                                 <input name="price" id="price" type="number" className="property__formInput" value={price} onChange={onChange} />  
+                                <span className="form__label-price">{type === 'Rent' ? 'Price (per month)' : 'Price'}</span>
                             </span>
                             
                         </div>
                         <div className='property__form--control'>
-                            <label htmlFor="squareFeet" className='property__form--label'>Square Feet (optional)</label>
                             <input name="squareFeet" id="squareFeet" className="property__formInput" value={squareFeet} onChange={onChange} />
+                            <span className="form__label">Square feet (optional)</span>
                         </div>
                         <div className='property__form--control'>
-                            <label htmlFor="bedrooms" className='property__form--label'>Bedrooms</label>
                             <input name="bedrooms" id="bedrooms" type="number" className="property__formInput" value={bedrooms} onChange={onChange} />
+                            <span className="form__label">Bedrooms</span>
                         </div>
                         <div className='property__form--control'>
-                            <label htmlFor="bathrooms" className='property__form--label'>Bathrooms</label>
                             <input name="bathrooms" id="bathrooms" type="number" className="property__formInput" value={bathrooms} onChange={onChange} />
+                            <span className="form__label">Bathrooms</span>
                         </div>
                         <div className='property__form--control form--textarea'>
-                            <label htmlFor='description' className='property__form--label'>Description (optional)</label>
                             <textarea name="description" id="description" className="property__form--textarea" value={description} onChange={onChange} />
+                            <span className="form__label">Description (optional)</span>
                         </div>
 
                         <div className="property__form--control">

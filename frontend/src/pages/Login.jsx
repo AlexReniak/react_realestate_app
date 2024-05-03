@@ -57,31 +57,34 @@ function Login() {
     }
 
     return (
-        <div className="container login__container">
+        <>
+            <div className="container login__container">
 
-            <h3 className="login__heading">Login</h3>
+                <h3 className="login__heading">Login</h3>
 
-            <section>
-                <form className="form" onSubmit={onSubmit}>
-                    <div className="form__group">
-                        <input type="email" id="email" className="form__input" required value={email} onChange={onChange} placeholder="Email"/>
-                    </div>
-                    <div className="form__group">
-                        <input type="password" id="password" className="form__input" required value={password} onChange={onChange} placeholder="Password"/>
-                    </div>
-                    <button className="btn form__btn">Login</button>
-                </form>
+                <section>
+                    <form className="form" onSubmit={onSubmit}>
+                        <div className="form__group">
+                            <input type="email" id="email" className="form__input" required value={email} onChange={onChange} placeholder="Email"/>
+                        </div>
+                        <div className="form__group">
+                            <input type="password" id="password" className="form__input" required value={password} onChange={onChange} placeholder="Password"/>
+                        </div>
+                        <button className="btn form__btn">Login</button>
+                    </form>
 
-            </section>
+                </section>
 
-            <p className="form__text--sub">Don't have an account?</p>
+                <p className="form__text--sub">Don't have an account?</p>
 
-            <div className="redirect__btn">
-                <Link to="/sign-up" className="btn form__btn--secondary">Sign Up</Link>
+                <div className="redirect__btn">
+                    <Link to="/sign-up" className="btn form__btn--secondary">Sign Up</Link>
+                </div>
+
             </div>
-
+            
             <Footer customClass={'footer__bottom'}/>
-        </div>
+        </>
     )
 }
 

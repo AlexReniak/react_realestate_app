@@ -14,6 +14,22 @@ const listingSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    city: {
+        type: String,
+        required: true
+    },
+    state: {
+        type: String,
+        required: true
+    },
+    postcode: {
+        type: String,
+        required: true
+    },
+    coordinates: {
+        type: Object,
+        required: true
+    },
     price: {
         type: Number,
         required: true,
