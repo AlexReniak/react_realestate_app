@@ -85,7 +85,7 @@ function Home() {
 
       <hr className='home__line' />
 
-      <RecentProperties />
+      {/* <RecentProperties /> */}
 
       <hr className='home__line' />
 

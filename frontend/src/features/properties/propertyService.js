@@ -44,8 +44,8 @@ const getProperty = async (propertyId) => {
 };
 
 // Get 3 most recent propertites
-const getRecentProperties = async (propertyId) => {
-  const response = await axios.get(`${API_URL}/recent}`);
+const getRecentProperties = async () => {
+  const response = await axios.get(`${API_URL}/recent`);
 
   return response.data;
 };

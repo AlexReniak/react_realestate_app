@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getRecentProperties } from '../features/properties/propertySlice';
+import RecentPropertyCard from './RecentPropertyCard';
 import Spinner from '../components/Spinner';
 
 const RecentProperties = () => {
@@ -20,7 +20,7 @@ const RecentProperties = () => {
       setLoading(false);
     };
 
-    getProperties().catch((error) => console.log(error));
+    getProperties().catch((error) => console.error(error));
   }, []);
 
   console.log(properties);
@@ -31,9 +31,11 @@ const RecentProperties = () => {
 
   return (
     <>
-      {properties.map((property) => (
-        <Link></Link>
-      ))}
+      <div className='recent-properties container'>
+        {properties.map((property) => (
+          <RecentPropertyCard property={property} />
+        ))}
+      </div>
     </>
   );
 };

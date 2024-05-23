@@ -119,7 +119,7 @@ const getListing = asyncHandler(async (req, res) => {
 });
 
 const getRecentListings = asyncHandler(async (req, res) => {
-  const listings = await Listings.find().sort({ createdAt: -1 });
+  const listings = await Listings.find().sort({ createdAt: -1 }).limit(3);
 
   if (!listings) {
     res.sendStatus(404);

@@ -16,7 +16,7 @@ router.route('/').get(getAllListings);
 
 router.route('/user').post(auth, createListing).get(auth, getUserListings);
 
-router.route('/recent').get(getFilteredListings);
+router.route('/recent').get(getRecentListings);
 
 router
   .route('/:id')
