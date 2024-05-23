@@ -39,7 +39,7 @@ function Home() {
         </div>
       </section>
 
-      <hr className='home__line' />
+      {/* <hr className='home__line' /> */}
 
       <section className='container home__info'>
         <div className='home__info-text-card'>
@@ -83,11 +83,11 @@ function Home() {
         </div>
       </section>
 
-      <hr className='home__line' />
+      {/* <hr className='home__line' /> */}
 
-      {/* <RecentProperties /> */}
+      <RecentProperties />
 
-      <hr className='home__line' />
+      {/* <hr className='home__line' /> */}
 
       <p className='home__text'>
         Looking to sell or rent your property? Sign up or login to get started.

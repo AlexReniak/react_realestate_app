@@ -23,14 +23,13 @@ const RecentProperties = () => {
     getProperties().catch((error) => console.error(error));
   }, []);
 
-  console.log(properties);
-
   if (loading || isLoading) {
     return <Spinner isLoading={loading || isLoading} />;
   }
 
   return (
     <>
+      <h4 className='recent-properties__heading'>Recently added properties</h4>
       <div className='recent-properties container'>
         {properties.map((property) => (
           <RecentPropertyCard property={property} />

@@ -13,7 +13,11 @@ const RecentPropertyCard = ({ property }) => {
         </div>
         <div className='recent-property__body'>
           <h3 className='recent-property__title'>{property.address}</h3>
-          <p className='recent-proprty__price'>${property.price}</p>
+          {property.type === 'Sale' ? (
+            <p className='recent-proprty__price'>${property.price}</p>
+          ) : (
+            <p className='recent-proprty__price'>${property.price} / month</p>
+          )}
         </div>
       </div>
     </Link>
